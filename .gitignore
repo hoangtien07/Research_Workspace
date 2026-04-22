@@ -4,6 +4,10 @@ shared/
 paper-*/
 paper_*/
 
+# Claude Code per-machine state (not tracked)
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
 # Python / editor
 __pycache__/
 *.pyc

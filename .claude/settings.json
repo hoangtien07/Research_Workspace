@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(git *:*)",
+      "Bash(ls:*)", "Bash(pwd)", "Bash(wc:*)", "Bash(which:*)",
+      "Bash(python --version)", "Bash(py --version)",
+      "Bash(pandoc --version)", "Bash(pandoc --list-*)",
+      "Bash(shared/.venv/Scripts/python.exe shared/scripts/*:*)",
+      "Bash(shared/.venv/Scripts/python.exe */make_figures.py)",
+      "Bash(cd * && make*)",
+      "Bash(curl -fsSLI:*)", "Bash(curl -fsSL -o */csl/*)"
+    ],
+    "deny": [
+      "Bash(rm -rf */data/raw/*)", "Bash(rm -rf */data/*)",
+      "Bash(rm -rf .git/*)", "Bash(rm -rf */.venv/*)",
+      "Bash(rm -rf */results/*)",
+      "Bash(git reset --hard*)", "Bash(git clean -f*)", "Bash(git push --force*)",
+      "Edit(*/data/raw/**)", "Write(*/data/raw/**)",
+      "Edit(*/data/processed/**)", "Write(*/data/processed/**)",
+      "Edit(*/.venv/**)", "Write(*/.venv/**)"
+    ]
+  },
+  "env": { "PYTHONUTF8": "1", "PYTHONIOENCODING": "utf-8" },
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{ "type": "command", "command": "python .claude/hooks/guard_raw_data.py" }]
+    }],
+    "PostToolUse": [{
+      "matcher": "Edit|Write",
+      "hooks": [{ "type": "command", "command": "python .claude/hooks/post_edit_advisor.py" }]
+    }]
+  },
+  "statusLine": { "type": "command", "command": "python .claude/statusline.py" }
+}
