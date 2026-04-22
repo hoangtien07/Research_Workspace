@@ -1,0 +1,16 @@
+# Sub-repos are separate git repositories — tracked here only as submodule pointers.
+# Their internal content is ignored; use each repo's own .gitignore.
+shared/
+paper-disc-grn/
+paper-disc-ppi/
+
+# Python / editor
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
